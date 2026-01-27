@@ -16,7 +16,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -27,7 +27,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             display: flex;
             height: 90vh;
@@ -77,14 +77,14 @@
         }
 
         .user-info {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 12px;
             border-radius: 6px;
             color: #fff;
             font-size: 12px;
             margin-top: auto;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .user-info.logged-in {
@@ -144,6 +144,12 @@
             font-size: 18px;
         }
 
+        h4 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -156,7 +162,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         th {
@@ -311,7 +317,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -329,7 +335,7 @@
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .modal h2 {
@@ -353,7 +359,7 @@
             padding: 20px;
             border-radius: 8px;
             margin-top: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             height: 400px;
         }
@@ -369,7 +375,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #667eea;
         }
 
@@ -393,7 +399,7 @@
             display: flex;
             gap: 15px;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .week-selector select {
@@ -415,7 +421,7 @@
             padding: 40px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .login-container h2 {
@@ -433,7 +439,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .admin-section h3 {
@@ -444,7 +450,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .list-item {
@@ -529,11 +535,8 @@
             <button class="sidebar-btn" onclick="showPage('predictions')">🎯 Palpites e Resultados</button>
             <button class="sidebar-btn" onclick="showPage('statistics')">📈 Estatísticas</button>
             <button class="sidebar-btn" onclick="showPage('admin')">⚙️ Cadastros</button>
-
-            <div class="user-info" id="userInfo">
-                Não autenticado
-            </div>
-            <button class="logout-btn" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+            <div class="user-info" id="userInfo">Não autenticado</div>
+            <button class="logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
         </div>
 
         <!-- MAIN CONTENT -->
@@ -554,7 +557,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="3" style="text-align:center; color:#718096;">Carregando...</td>
+                                    <td colspan="3" style="text-align: center; color: #718096;">Carregando...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -593,70 +596,70 @@
                 <div id="loginForm" class="login-container">
                     <h2>Login</h2>
                     <div class="form-group">
-                        <label>Email:</label>
+                        <label>Email</label>
                         <input type="email" id="loginEmail" placeholder="seu@email.com">
                     </div>
                     <div class="form-group">
-                        <label>Senha:</label>
+                        <label>Senha</label>
                         <input type="password" id="loginPassword" placeholder="Sua senha">
                     </div>
-                    <button class="btn" style="width:100%" onclick="login()">Entrar</button>
-                    <div id="loginError" style="color:#f44336; margin-top:10px; display:none;"></div>
+                    <button class="btn" style="width: 100%;" onclick="login()">Entrar</button>
+                    <div id="loginError" style="color: #f44336; margin-top: 10px; display: none;"></div>
                 </div>
 
-                <div id="adminPanel" style="display:none;">
+                <div id="adminPanel" style="display: none;">
                     <div class="admin-panel">
                         <!-- PLAYERS MANAGEMENT -->
                         <div class="admin-section">
                             <h3>👥 Gerenciar Jogadores</h3>
                             <div class="form-group">
-                                <label>Nome do Jogador:</label>
+                                <label>Nome do Jogador</label>
                                 <input type="text" id="playerName" placeholder="Digite o nome">
                             </div>
                             <button class="btn" onclick="addPlayer()">Adicionar Jogador</button>
-                            <h4 style="margin-top:20px; color:#2d3748;">Jogadores Cadastrados:</h4>
-                            <div id="adminPlayersList" style="max-height:300px; overflow-y:auto;"></div>
+                            <h4 style="margin-top: 20px; color: #2d3748;">Jogadores Cadastrados</h4>
+                            <div id="adminPlayersList" style="max-height: 300px; overflow-y: auto;"></div>
                         </div>
 
                         <!-- GAMES MANAGEMENT -->
                         <div class="admin-section">
                             <h3>📅 Gerenciar Semanas e Jogos</h3>
                             <div class="form-group">
-                                <label>Data Inicial da Semana:</label>
+                                <label>Data Inicial da Semana</label>
                                 <input type="date" id="weekStartDate">
                             </div>
                             <div class="form-group">
-                                <label>Data Final da Semana:</label>
+                                <label>Data Final da Semana</label>
                                 <input type="date" id="weekEndDate">
                             </div>
                             <div class="form-group">
-                                <label>Quantidade de Jogos:</label>
+                                <label>Quantidade de Jogos</label>
                                 <input type="number" id="gameCount" min="1" max="30" value="1" onchange="generateGameFields()">
                             </div>
                             <div id="gameFields"></div>
                             <button class="btn" onclick="saveWeek()">Salvar Semana</button>
 
-                            <h4 style="margin-top:20px; color:#2d3748;">Editar Semana Existente:</h4>
-                            <select id="editWeekSelect" style="margin-bottom:15px;">
+                            <h4 style="margin-top: 30px; color: #2d3748;">Editar Semana Existente</h4>
+                            <select id="editWeekSelect" style="margin-bottom: 15px;">
                                 <option value="">Selecione uma semana...</option>
                             </select>
                             <button class="btn btn-secondary" onclick="loadWeekForEditing()">Carregar</button>
-                            <div id="editGameFields" style="margin-top:15px;"></div>
-                            <button class="btn" id="saveEditBtn" onclick="saveWeekEdit()" style="display:none; margin-top:15px;">Salvar Alterações</button>
+                            <div id="editGameFields" style="margin-top: 15px;"></div>
+                            <button class="btn" id="saveEditBtn" onclick="saveWeekEdit()" style="display: none; margin-top: 15px;">Salvar Alterações</button>
                         </div>
                     </div>
 
                     <!-- PREDICTIONS MANAGEMENT -->
-                    <div class="admin-section" style="grid-column:1/-1;">
+                    <div class="admin-section" style="grid-column: 1 / -1;">
                         <h3>🎯 Cadastrar Palpites</h3>
                         <div class="week-selector">
-                            <label style="margin:0;">Selecione a Semana:</label>
-                            <select id="predictionWeekSelect" onchange="loadPredictionWeek()" style="max-width:300px;">
+                            <label style="margin: 0;">Selecione a Semana</label>
+                            <select id="predictionWeekSelect" onchange="loadPredictionWeek()" style="max-width: 300px;">
                                 <option value="">-- Escolha uma semana --</option>
                             </select>
                         </div>
                         <div id="predictionInputs"></div>
-                        <button class="btn" id="savePredictionsBtn" onclick="savePredictions()" style="display:none; margin-top:15px;">Salvar Palpites</button>
+                        <button class="btn" id="savePredictionsBtn" onclick="savePredictions()" style="display: none; margin-top: 15px;">Salvar Palpites</button>
                     </div>
                 </div>
             </div>
@@ -665,26 +668,27 @@
 
     <script>
         // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCnueIIkh8laJeLQk2MFt7_gGr7nnrspDA",
-            authDomain: "bolao-dcu.firebaseapp.com",
-            databaseURL: "https://bolao-dcu-default-rtdb.firebaseio.com",
-            projectId: "bolao-dcu",
-            storageBucket: "bolao-dcu.firebasestorage.app",
-            messagingSenderId: "197456080385",
-            appId: "1:197456080385:web:97157a0dd98e353d985a00",
-            measurementId: "G-LXV6PB71N0"
-        };
+const firebaseConfig = {
+  apiKey: "AIzaSyCnueIIkh8laJeLQk2MFt7_gGr7nnrspDA",
+  authDomain: "bolao-dcu.firebaseapp.com",
+  databaseURL: "https://bolao-dcu-default-rtdb.firebaseio.com",
+  projectId: "bolao-dcu",
+  storageBucket: "bolao-dcu.firebasestorage.app",
+  messagingSenderId: "197456080385",
+  appId: "1:197456080385:web:97157a0dd98e353d985a00",
+  measurementId: "G-LXV6PB71N0"
+};
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const auth = firebase.auth();
+
         let currentUser = null;
         let currentEditingWeek = null;
         let currentPredictionWeek = null;
 
         // AUTH STATE
-        auth.onAuthStateChanged((user) => {
+        auth.onAuthStateChanged(user => {
             currentUser = user;
             updateUserInfo();
             loadAllData();
@@ -728,8 +732,8 @@
                     document.getElementById('loginEmail').value = '';
                     document.getElementById('loginPassword').value = '';
                 })
-                .catch((error) => {
-                    errorDiv.textContent = 'Erro: ' + error.message;
+                .catch(error => {
+                    errorDiv.textContent = `Erro: ${error.message}`;
                     errorDiv.style.display = 'block';
                 });
         }
@@ -741,7 +745,6 @@
         function showPage(pageName) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageName).classList.add('active');
-
             document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
@@ -761,15 +764,12 @@
 
         // DASHBOARD
         function loadDashboard() {
-            db.ref('players').on('value', (snapshot) => {
-                const players = snapshot.val() || {};
-                const playersList = Object.entries(players).map(([key, data]) => ({
-                    id: key,
-                    ...data
-                }));
+            db.ref('players').on('value', snapshot => {
+                const players = snapshot.val();
+                const playersList = Object.entries(players || {}).map(([key, data]) => ({ id: key, ...data }));
 
-                db.ref('weeks').on('value', (weeksSnapshot) => {
-                    const weeks = weeksSnapshot.val() || {};
+                db.ref('weeks').on('value', weeksSnapshot => {
+                    const weeks = weeksSnapshot.val();
                     const classificationData = calculateClassification(playersList, weeks);
                     displayClassification(classificationData);
                 });
@@ -777,18 +777,23 @@
         }
 
         function calculateClassification(playersList, weeks) {
-            const weeksArray = Object.values(weeks);
+            const weeksArray = Object.values(weeks || {});
+
             const classification = playersList.map(player => {
                 let correctPredictions = 0;
                 let totalPredictions = 0;
+                let points = 0;
 
                 weeksArray.forEach(week => {
-                    (week.games || []).forEach(game => {
+                    week.games.forEach(game => {
+                        const weight = game.weight || 1;
+
                         if (game.result && game.predictions && game.predictions[player.id]) {
                             totalPredictions++;
                             const pred = game.predictions[player.id];
-                            if (pred.homeGoals == game.result.homeGoals && pred.awayGoals == game.result.awayGoals) {
+                            if (pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals) {
                                 correctPredictions++;
+                                points += weight;
                             }
                         }
                     });
@@ -796,7 +801,8 @@
 
                 return {
                     ...player,
-                    points: correctPredictions,
+                    points: points,
+                    correctPredictions,
                     totalPredictions
                 };
             }).sort((a, b) => b.points - a.points);
@@ -808,7 +814,7 @@
             const tbody = document.querySelector('#classificationTable tbody');
             tbody.innerHTML = classificationData.map((player, idx) => `
                 <tr>
-                    <td><strong>${idx + 1}º</strong></td>
+                    <td><strong>${idx + 1}</strong></td>
                     <td>${player.name}</td>
                     <td><strong>${player.points}</strong></td>
                 </tr>
@@ -817,16 +823,16 @@
 
         // PLAYERS
         function loadPlayers() {
-            db.ref('players').on('value', (snapshot) => {
-                const players = snapshot.val() || {};
+            db.ref('players').on('value', snapshot => {
+                const players = snapshot.val();
                 const playersList = document.getElementById('playersList');
 
-                if (Object.keys(players).length === 0) {
+                if (!Object.keys(players || {}).length) {
                     playersList.innerHTML = '<div class="empty-message">Nenhum jogador cadastrado.</div>';
                     return;
                 }
 
-                playersList.innerHTML = Object.entries(players).map(([key, data]) => `
+                playersList.innerHTML = Object.entries(players || {}).map(([key, data]) => `
                     <div class="list-item">
                         <span>${data.name}</span>
                         <span class="badge">${data.name}</span>
@@ -837,31 +843,34 @@
 
         function addPlayer() {
             const playerName = document.getElementById('playerName').value.trim();
+
             if (!playerName) {
                 alert('Digite um nome de jogador');
                 return;
             }
 
             const newPlayerRef = db.ref('players').push();
-            newPlayerRef.set({ name: playerName })
-                .then(() => {
-                    document.getElementById('playerName').value = '';
-                    loadAdminPlayersList();
-                })
-                .catch(error => alert('Erro ao adicionar jogador: ' + error.message));
+            newPlayerRef.set({
+                name: playerName
+            }).then(() => {
+                document.getElementById('playerName').value = '';
+                loadAdminPlayersList();
+            }).catch(error => {
+                alert(`Erro ao adicionar jogador: ${error.message}`);
+            });
         }
 
         function loadAdminPlayersList() {
-            db.ref('players').on('value', (snapshot) => {
-                const players = snapshot.val() || {};
+            db.ref('players').on('value', snapshot => {
+                const players = snapshot.val();
                 const adminPlayersList = document.getElementById('adminPlayersList');
 
-                if (Object.keys(players).length === 0) {
+                if (!Object.keys(players || {}).length) {
                     adminPlayersList.innerHTML = '<div class="empty-message">Nenhum jogador cadastrado.</div>';
                     return;
                 }
 
-                adminPlayersList.innerHTML = Object.entries(players).map(([key, data]) => `
+                adminPlayersList.innerHTML = Object.entries(players || {}).map(([key, data]) => `
                     <div class="list-item">
                         <span>${data.name}</span>
                         <button class="btn btn-danger btn-small" onclick="deletePlayer('${key}')">Deletar</button>
@@ -873,8 +882,12 @@
         function deletePlayer(playerId) {
             if (confirm('Tem certeza que deseja deletar este jogador?')) {
                 db.ref('players/' + playerId).remove()
-                    .then(() => loadAdminPlayersList())
-                    .catch(error => alert('Erro ao deletar jogador: ' + error.message));
+                    .then(() => {
+                        loadAdminPlayersList();
+                    })
+                    .catch(error => {
+                        alert(`Erro ao deletar jogador: ${error.message}`);
+                    });
             }
         }
 
@@ -892,21 +905,21 @@
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                             <div>
-                                <label>Time Mandante:</label>
+                                <label>Time Mandante</label>
                                 <input type="text" class="homeTeam" placeholder="Ex: Flamengo">
                             </div>
                             <div>
-                                <label>Time Visitante:</label>
+                                <label>Time Visitante</label>
                                 <input type="text" class="awayTeam" placeholder="Ex: São Paulo">
                             </div>
                         </div>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                             <div>
-                                <label>Data do Confronto:</label>
+                                <label>Data do Confronto</label>
                                 <input type="date" class="gameDate">
                             </div>
                             <div>
-                                <label>Competição:</label>
+                                <label>Competição</label>
                                 <select class="competition">
                                     <option value="">Selecione...</option>
                                     <option value="Série A">Série A</option>
@@ -916,6 +929,15 @@
                                     <option value="Sul Americana">Sul Americana</option>
                                     <option value="Amistoso">Amistoso</option>
                                     <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <div>
+                                <label>Peso do Jogo</label>
+                                <select class="gameWeight">
+                                    <option value="1" selected>Peso 1 (normal)</option>
+                                    <option value="2">Peso 2 (vale 2 pontos)</option>
                                 </select>
                             </div>
                         </div>
@@ -943,6 +965,7 @@
                 const awayTeam = document.querySelectorAll('.awayTeam')[idx].value.trim();
                 const gameDate = document.querySelectorAll('.gameDate')[idx].value;
                 const competition = document.querySelectorAll('.competition')[idx].value;
+                const weight = parseInt(document.querySelectorAll('.gameWeight')[idx].value) || 1;
 
                 if (homeTeam && awayTeam && gameDate && competition) {
                     games.push({
@@ -950,7 +973,9 @@
                         awayTeam,
                         gameDate,
                         competition,
-                        predictions: {}
+                        weight,
+                        predictions: {},
+                        result: null
                     });
                 }
             });
@@ -961,8 +986,8 @@
             }
 
             db.ref('weeks').once('value').then(snapshot => {
-                const weeks = snapshot.val() || {};
-                const weekNumber = Object.keys(weeks).length + 1;
+                const weeks = snapshot.val();
+                const weekNumber = Object.keys(weeks || {}).length + 1;
 
                 db.ref('weeks').push({
                     weekNumber,
@@ -970,29 +995,31 @@
                     endDate,
                     games
                 }).then(() => {
-                    alert('Semana ' + weekNumber + ' salva com sucesso!');
+                    alert(`Semana ${weekNumber} salva com sucesso!`);
                     document.getElementById('weekStartDate').value = '';
                     document.getElementById('weekEndDate').value = '';
-                    document.getElementById('gameCount').value = '1';
+                    document.getElementById('gameCount').value = 1;
                     document.getElementById('gameFields').innerHTML = '';
                     loadEditWeekSelect();
                     loadPredictionWeekSelect();
-                }).catch(error => alert('Erro ao salvar semana: ' + error.message));
+                }).catch(error => {
+                    alert(`Erro ao salvar semana: ${error.message}`);
+                });
             });
         }
 
         function loadEditWeekSelect() {
-            db.ref('weeks').on('value', (snapshot) => {
-                const weeks = snapshot.val() || {};
+            db.ref('weeks').on('value', snapshot => {
+                const weeks = snapshot.val();
                 const select = document.getElementById('editWeekSelect');
                 select.innerHTML = '<option value="">Selecione uma semana...</option>';
 
-                const weeksArray = Object.entries(weeks).sort((a, b) => a[1].weekNumber - b[1].weekNumber);
+                const weeksArray = Object.entries(weeks || {}).sort((a, b) => a[1].weekNumber - b[1].weekNumber);
 
                 weeksArray.forEach(([key, week]) => {
                     const option = document.createElement('option');
                     option.value = key;
-                    option.textContent = `Semana ${week.weekNumber} (${week.startDate} a ${week.endDate})`;
+                    option.textContent = `Semana ${week.weekNumber} - ${week.startDate} a ${week.endDate}`;
                     select.appendChild(option);
                 });
             });
@@ -1000,6 +1027,7 @@
 
         function loadWeekForEditing() {
             const weekId = document.getElementById('editWeekSelect').value;
+
             if (!weekId) {
                 alert('Selecione uma semana');
                 return;
@@ -1012,38 +1040,51 @@
                 let html = '';
 
                 week.games.forEach((game, idx) => {
+                    const weight = game.weight || 1;
+
                     html += `
-                        <div class="game-row" style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap:10px; padding:15px; background:#f8f9fa; border-radius:6px; margin-bottom:15px; align-items:end;">
-                            <div>
-                                <label>Time Mandante:</label>
-                                <input type="text" class="editHomeTeam" value="${game.homeTeam}" style="font-size:12px;">
+                        <div class="game-row" style="display:flex; flex-direction:column; gap:10px; padding:15px; background:#f8f9fa; border-radius:6px; margin-bottom:15px;">
+                            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:10px; align-items:end;">
+                                <div>
+                                    <label>Time Mandante</label>
+                                    <input type="text" class="editHomeTeam" value="${game.homeTeam}" style="font-size:12px;">
+                                </div>
+                                <div>
+                                    <label>Time Visitante</label>
+                                    <input type="text" class="editAwayTeam" value="${game.awayTeam}" style="font-size:12px;">
+                                </div>
+                                <div>
+                                    <label>Data</label>
+                                    <input type="date" class="editGameDate" value="${game.gameDate}" style="font-size:12px;">
+                                </div>
+                                <div>
+                                    <label>Competição</label>
+                                    <select class="editCompetition" style="font-size:12px;">
+                                        <option value="Série A" ${game.competition === 'Série A' ? 'selected' : ''}>Série A</option>
+                                        <option value="Estadual" ${game.competition === 'Estadual' ? 'selected' : ''}>Estadual</option>
+                                        <option value="Copa do Brasil" ${game.competition === 'Copa do Brasil' ? 'selected' : ''}>Copa do Brasil</option>
+                                        <option value="Libertadores" ${game.competition === 'Libertadores' ? 'selected' : ''}>Libertadores</option>
+                                        <option value="Sul Americana" ${game.competition === 'Sul Americana' ? 'selected' : ''}>Sul Americana</option>
+                                        <option value="Amistoso" ${game.competition === 'Amistoso' ? 'selected' : ''}>Amistoso</option>
+                                        <option value="Outro" ${game.competition === 'Outro' ? 'selected' : ''}>Outro</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div>
-                                <label>Time Visitante:</label>
-                                <input type="text" class="editAwayTeam" value="${game.awayTeam}" style="font-size:12px;">
-                            </div>
-                            <div>
-                                <label>Data:</label>
-                                <input type="date" class="editGameDate" value="${game.gameDate}" style="font-size:12px;">
-                            </div>
-                            <div>
-                                <label>Competição:</label>
-                                <select class="editCompetition" style="font-size:12px;">
-                                    <option value="Série A" ${game.competition === 'Série A' ? 'selected' : ''}>Série A</option>
-                                    <option value="Estadual" ${game.competition === 'Estadual' ? 'selected' : ''}>Estadual</option>
-                                    <option value="Copa do Brasil" ${game.competition === 'Copa do Brasil' ? 'selected' : ''}>Copa do Brasil</option>
-                                    <option value="Libertadores" ${game.competition === 'Libertadores' ? 'selected' : ''}>Libertadores</option>
-                                    <option value="Sul Americana" ${game.competition === 'Sul Americana' ? 'selected' : ''}>Sul Americana</option>
-                                    <option value="Amistoso" ${game.competition === 'Amistoso' ? 'selected' : ''}>Amistoso</option>
-                                    <option value="Outro" ${game.competition === 'Outro' ? 'selected' : ''}>Outro</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Resultado:</label>
-                                <div style="display:flex; gap:5px;">
-                                    <input type="number" class="editResultHome" value="${game.result ? game.result.homeGoals : ''}" placeholder="0" style="width:40px; font-size:12px;">
-                                    <span style="padding:8px; color:#2d3748;">x</span>
-                                    <input type="number" class="editResultAway" value="${game.result ? game.result.awayGoals : ''}" placeholder="0" style="width:40px; font-size:12px;">
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; align-items:end;">
+                                <div>
+                                    <label>Peso do Jogo</label>
+                                    <select class="editGameWeight" style="font-size:12px;">
+                                        <option value="1" ${weight === 1 ? 'selected' : ''}>Peso 1 (normal)</option>
+                                        <option value="2" ${weight === 2 ? 'selected' : ''}>Peso 2 (vale 2 pontos)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Resultado</label>
+                                    <div style="display:flex; gap:5px;">
+                                        <input type="number" class="editResultHome" value="${game.result ? game.result.homeGoals : ''}" placeholder="0" style="width:40px; font-size:12px;">
+                                        <span style="padding:8px; color:#2d3748;">x</span>
+                                        <input type="number" class="editResultAway" value="${game.result ? game.result.awayGoals : ''}" placeholder="0" style="width:40px; font-size:12px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1060,22 +1101,29 @@
             const awayTeams = Array.from(document.querySelectorAll('.editAwayTeam')).map(el => el.value);
             const gameDates = Array.from(document.querySelectorAll('.editGameDate')).map(el => el.value);
             const competitions = Array.from(document.querySelectorAll('.editCompetition')).map(el => el.value);
+            const weights = Array.from(document.querySelectorAll('.editGameWeight')).map(el => parseInt(el.value) || 1);
             const resultHomes = Array.from(document.querySelectorAll('.editResultHome')).map(el => el.value);
             const resultAways = Array.from(document.querySelectorAll('.editResultAway')).map(el => el.value);
 
             db.ref('weeks/' + currentEditingWeek).once('value').then(snapshot => {
                 const week = snapshot.val();
-                const updatedGames = week.games.map((game, idx) => ({
-                    homeTeam: homeTeams[idx],
-                    awayTeam: awayTeams[idx],
-                    gameDate: gameDates[idx],
-                    competition: competitions[idx],
-                    predictions: game.predictions || {},
-                    result: (resultHomes[idx] !== '' && resultAways[idx] !== '') ? {
-                        homeGoals: parseInt(resultHomes[idx]),
-                        awayGoals: parseInt(resultAways[idx])
-                    } : game.result || null
-                }));
+
+                const updatedGames = week.games.map((game, idx) => {
+                    return {
+                        homeTeam: homeTeams[idx],
+                        awayTeam: awayTeams[idx],
+                        gameDate: gameDates[idx],
+                        competition: competitions[idx],
+                        weight: weights[idx] || game.weight || 1,
+                        predictions: game.predictions || {},
+                        result: (resultHomes[idx] !== '' && resultAways[idx] !== '')
+                            ? {
+                                homeGoals: parseInt(resultHomes[idx]),
+                                awayGoals: parseInt(resultAways[idx])
+                            }
+                            : game.result || null
+                    };
+                });
 
                 db.ref('weeks/' + currentEditingWeek).update({ games: updatedGames })
                     .then(() => {
@@ -1084,23 +1132,25 @@
                         document.getElementById('saveEditBtn').style.display = 'none';
                         loadPredictionsList();
                     })
-                    .catch(error => alert('Erro ao atualizar: ' + error.message));
+                    .catch(error => {
+                        alert(`Erro ao atualizar: ${error.message}`);
+                    });
             });
         }
 
         // PREDICTIONS
         function loadPredictionWeekSelect() {
-            db.ref('weeks').on('value', (snapshot) => {
-                const weeks = snapshot.val() || {};
+            db.ref('weeks').on('value', snapshot => {
+                const weeks = snapshot.val();
                 const select = document.getElementById('predictionWeekSelect');
                 select.innerHTML = '<option value="">-- Escolha uma semana --</option>';
 
-                const weeksArray = Object.entries(weeks).sort((a, b) => a[1].weekNumber - b[1].weekNumber);
+                const weeksArray = Object.entries(weeks || {}).sort((a, b) => a[1].weekNumber - b[1].weekNumber);
 
                 weeksArray.forEach(([key, week]) => {
                     const option = document.createElement('option');
                     option.value = key;
-                    option.textContent = `Semana ${week.weekNumber} (${week.startDate} a ${week.endDate})`;
+                    option.textContent = `Semana ${week.weekNumber} - ${week.startDate} a ${week.endDate}`;
                     select.appendChild(option);
                 });
             });
@@ -1108,6 +1158,7 @@
 
         function loadPredictionWeek() {
             const weekId = document.getElementById('predictionWeekSelect').value;
+
             if (!weekId) {
                 document.getElementById('predictionInputs').innerHTML = '';
                 document.getElementById('savePredictionsBtn').style.display = 'none';
@@ -1118,38 +1169,36 @@
 
             db.ref('weeks/' + weekId).once('value').then(snapshot => {
                 const week = snapshot.val();
+
                 db.ref('players').once('value').then(playersSnapshot => {
-                    const players = playersSnapshot.val() || {};
+                    const players = playersSnapshot.val();
                     let html = '';
 
                     week.games.forEach((game, gameIdx) => {
-                        html += `
-                            <div class="game-row" style="display:grid; grid-template-columns: 150px 150px repeat(${Object.keys(players).length}, 1fr); gap:10px; padding:15px; background:#f8f9fa; border-radius:6px; margin-bottom:15px; align-items:center;">
-                                <div><strong>${game.homeTeam}</strong></div>
-                                <div><strong>x</strong></div>
-                        `;
+                        html += `<div style="margin-bottom: 20px;"><strong>${game.homeTeam} x ${game.awayTeam}</strong></div>`;
+                        html += `<div style="display:grid; grid-template-columns: 150px 150px ${Array(Object.keys(players || {}).length).fill('1fr').join(' ')}; gap:10px; padding:15px; background:#f8f9fa; border-radius:6px; margin-bottom:15px; align-items:center;">`;
+                        html += `<div><strong>${game.homeTeam}</strong></div>`;
+                        html += `<div><strong>x</strong></div>`;
 
-                        Object.entries(players).forEach(([playerId, player]) => {
+                        Object.entries(players || {}).forEach(([playerId, player]) => {
                             const pred = game.predictions && game.predictions[playerId];
                             const homeGoals = pred ? pred.homeGoals : '';
                             const awayGoals = pred ? pred.awayGoals : '';
 
                             html += `
                                 <div style="text-align:center;">
-                                    <small style="color:#718096;">${player.name}</small><br>
+                                    <small style="color:#718096;">${player.name}<br></small>
                                     <div style="display:flex; gap:5px; justify-content:center;">
-                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="home" value="${homeGoals}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
+                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="home" value="${homeGoals || ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
                                         <span style="font-size:11px; padding:4px;">x</span>
-                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="away" value="${awayGoals}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
+                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="away" value="${awayGoals || ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
                                     </div>
                                 </div>
                             `;
                         });
 
-                        html += `
-                                <div><strong>${game.awayTeam}</strong></div>
-                            </div>
-                        `;
+                        html += `<div><strong>${game.awayTeam}</strong></div>`;
+                        html += `</div>`;
                     });
 
                     document.getElementById('predictionInputs').innerHTML = html;
@@ -1187,7 +1236,7 @@
 
                 const updatedGames = week.games.map((game, idx) => ({
                     ...game,
-                    predictions: predictionsMap[idx] || game.predictions || {}
+                    predictions: predictionsMap[idx] || game.predictions
                 }));
 
                 db.ref('weeks/' + currentPredictionWeek).update({ games: updatedGames })
@@ -1195,44 +1244,38 @@
                         alert('Palpites salvos com sucesso!');
                         loadPredictionsList();
                     })
-                    .catch(error => alert('Erro ao salvar palpites: ' + error.message));
+                    .catch(error => {
+                        alert(`Erro ao salvar palpites: ${error.message}`);
+                    });
             });
         }
 
         function loadPredictionsList() {
             const predictionsList = document.getElementById('predictionsList');
 
-            db.ref('weeks').on('value', (weeksSnapshot) => {
-                db.ref('players').once('value', (playersSnapshot) => {
-                    const weeks = weeksSnapshot.val() || {};
-                    const players = playersSnapshot.val() || {};
+            db.ref('weeks').on('value', weeksSnapshot => {
+                db.ref('players').once('value', playersSnapshot => {
+                    const weeks = weeksSnapshot.val();
+                    const players = playersSnapshot.val();
                     let html = '';
 
-                    const weeksArray = Object.values(weeks).sort((a, b) => a.weekNumber - b.weekNumber);
+                    const weeksArray = Object.values(weeks || {}).sort((a, b) => a.weekNumber - b.weekNumber);
 
                     weeksArray.forEach(week => {
-                        html += `<h3>Semana ${week.weekNumber} (${week.startDate} a ${week.endDate})</h3>`;
-                        html += `<table class="predictions-table">
-                            <thead>
-                                <tr>
-                                    <th>Jogo</th>
-                                    <th>Resultado</th>
-                                    ${Object.entries(players).map(([, p]) => `<th>${p.name}</th>`).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                        `;
+                        html += `<h3>Semana ${week.weekNumber} - ${week.startDate} a ${week.endDate}</h3>`;
+                        html += `<table class="predictions-table">`;
+                        html += `<thead><tr><th>Jogo</th><th>Resultado</th>${Object.entries(players || {}).map(([, p]) => `<th>${p.name}</th>`).join('')}</tr></thead>`;
+                        html += `<tbody>`;
 
                         week.games.forEach(game => {
-                            html += `<tr>
-                                <td><strong>${game.homeTeam} x ${game.awayTeam}</strong><br><small>${game.gameDate}</small></td>
-                                <td>${game.result ? `${game.result.homeGoals}x${game.result.awayGoals}` : 'Pendente'}</td>
-                            `;
+                            html += `<tr>`;
+                            html += `<td><strong>${game.homeTeam} x ${game.awayTeam}</strong><br><small style="color:#718096;">${game.gameDate}</small></td>`;
+                            html += `<td>${game.result ? `${game.result.homeGoals}x${game.result.awayGoals}` : 'Pendente'}</td>`;
 
-                            Object.entries(players).forEach(([playerId, player]) => {
+                            Object.entries(players || {}).forEach(([playerId, player]) => {
                                 const pred = game.predictions && game.predictions[playerId];
-                                const isCorrect = game.result && pred && 
-                                    pred.homeGoals === game.result.homeGoals && 
+                                const isCorrect = game.result && pred &&
+                                    pred.homeGoals === game.result.homeGoals &&
                                     pred.awayGoals === game.result.awayGoals;
 
                                 html += `<td class="${isCorrect ? 'correct' : ''}">${pred ? `${pred.homeGoals}x${pred.awayGoals}` : '-'}</td>`;
@@ -1251,45 +1294,52 @@
 
         // STATISTICS
         function loadStatistics() {
-            db.ref('weeks').once('value', (weeksSnapshot) => {
-                db.ref('players').once('value', (playersSnapshot) => {
-                    const weeks = weeksSnapshot.val() || {};
-                    const players = playersSnapshot.val() || {};
-                    const weeksArray = Object.values(weeks).sort((a, b) => a.weekNumber - b.weekNumber);
-
+            db.ref('weeks').once('value', weeksSnapshot => {
+                db.ref('players').once('value', playersSnapshot => {
+                    const weeks = weeksSnapshot.val();
+                    const players = playersSnapshot.val();
+                    const weeksArray = Object.values(weeks || {}).sort((a, b) => a.weekNumber - b.weekNumber);
                     const stats = {};
 
-                    Object.entries(players).forEach(([playerId, player]) => {
-                        let exactMatches = 0, exactMatchCount = 0;
-                        let partialMatches = 0, partialMatchCount = 0;
-                        let resultMatches = 0, resultMatchCount = 0;
+                    Object.entries(players || {}).forEach(([playerId, player]) => {
+                        let exactMatches = 0;
+                        let exactMatchCount = 0;
+                        let exactPoints = 0;
+
+                        let partialMatches = 0;
+                        let partialMatchCount = 0;
+
+                        let resultMatches = 0;
+                        let resultMatchCount = 0;
 
                         weeksArray.forEach(week => {
                             week.games.forEach(game => {
+                                const weight = game.weight || 1;
+
                                 if (game.result && game.predictions && game.predictions[playerId]) {
                                     const pred = game.predictions[playerId];
 
                                     // Exact matches
                                     exactMatchCount++;
                                     if (pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals) {
-                                        exactMatches += 1;
+                                        exactMatches++;
+                                        exactPoints += weight;
                                     }
 
                                     // Partial matches
                                     partialMatchCount++;
                                     if (pred.homeGoals === game.result.homeGoals || pred.awayGoals === game.result.awayGoals) {
-                                        partialMatches += 1;
-                                    }
-                                    if (pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals) {
-                                        partialMatches += 1;
+                                        if (!(pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals)) {
+                                            partialMatches++;
+                                        }
                                     }
 
-                                    // Result matches (winner)
+                                    // Result matches
                                     resultMatchCount++;
-                                    const predWinner = pred.homeGoals > pred.awayGoals ? 'home' : (pred.homeGoals < pred.awayGoals ? 'away' : 'draw');
-                                    const resultWinner = game.result.homeGoals > game.result.awayGoals ? 'home' : (game.result.homeGoals < game.result.awayGoals ? 'away' : 'draw');
+                                    const predWinner = pred.homeGoals > pred.awayGoals ? 'home' : pred.homeGoals < pred.awayGoals ? 'away' : 'draw';
+                                    const resultWinner = game.result.homeGoals > game.result.awayGoals ? 'home' : game.result.homeGoals < game.result.awayGoals ? 'away' : 'draw';
                                     if (predWinner === resultWinner) {
-                                        resultMatches += 1;
+                                        resultMatches++;
                                     }
                                 }
                             });
@@ -1299,179 +1349,66 @@
                             name: player.name,
                             exactMatches,
                             exactMatchCount,
-                            exactApprovement: exactMatchCount > 0 ? ((exactMatches / exactMatchCount) * 100).toFixed(1) : 0,
+                            exactApprovement: exactMatchCount === 0 ? 0 : (exactMatches / exactMatchCount * 100).toFixed(1),
+                            exactPoints,
                             partialMatches,
-                            partialMatchCount: exactMatchCount,
-                            partialApprovement: exactMatchCount > 0 ? ((partialMatches / (exactMatchCount * 2)) * 100).toFixed(1) : 0,
+                            partialMatchCount,
+                            partialApprovement: partialMatchCount === 0 ? 0 : (partialMatches / partialMatchCount * 100).toFixed(1),
                             resultMatches,
                             resultMatchCount,
-                            resultApprovement: resultMatchCount > 0 ? ((resultMatches / resultMatchCount) * 100).toFixed(1) : 0
+                            resultApprovement: resultMatchCount === 0 ? 0 : (resultMatches / resultMatchCount * 100).toFixed(1)
                         };
                     });
 
                     const sortedStats = Object.entries(stats).sort((a, b) => b[1].exactMatches - a[1].exactMatches);
-
                     let html = '';
 
-                    // TABLE 1: Exact Matches
-                    html += '<h3>📊 Tabela 1: Palpites Exatos</h3>';
-                    html += `<table>
-                        <thead>
-                            <tr>
-                                <th>Classificação</th>
-                                <th>Jogador</th>
-                                <th>Pontos</th>
-                                <th>Apostas</th>
-                                <th>Aproveitamento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    `;
+                    // TABLE 1 - Exact Matches
+                    html += `<h3>📊 Tabela 1 - Palpites Exatos</h3>`;
+                    html += `<table><thead><tr><th>Classificação</th><th>Jogador</th><th>Pontos</th><th>Apostas</th><th>Aproveitamento</th></tr></thead><tbody>`;
 
                     let position = 1;
                     sortedStats.forEach(([, stats], idx) => {
                         if (idx > 0 && sortedStats[idx][1].exactMatches !== sortedStats[idx - 1][1].exactMatches) {
                             position = idx + 1;
                         }
-                        html += `<tr>
-                            <td><strong>${position}º</strong></td>
-                            <td>${stats.name}</td>
-                            <td><strong>${stats.exactMatches}</strong></td>
-                            <td>${stats.exactMatchCount}</td>
-                            <td>${stats.exactApprovement}%</td>
-                        </tr>`;
+                        html += `<tr><td><strong>${position}</strong></td><td>${stats.name}</td><td><strong>${stats.exactPoints}</strong></td><td>${stats.exactMatchCount}</td><td>${stats.exactApprovement}%</td></tr>`;
                     });
 
-                    html += '</tbody></table>';
+                    html += `</tbody></table>`;
 
-                    // TABLE 2: Partial Matches
+                    // TABLE 2 - Partial Matches
                     const sortedPartial = Object.entries(stats).sort((a, b) => b[1].partialMatches - a[1].partialMatches);
-                    html += '<h3 style="margin-top:30px;">📊 Tabela 2: Placar de Gols</h3>';
-                    html += `<table>
-                        <thead>
-                            <tr>
-                                <th>Classificação</th>
-                                <th>Jogador</th>
-                                <th>Pontos</th>
-                                <th>Apostas</th>
-                                <th>Aproveitamento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    `;
+                    html += `<h3 style="margin-top:30px;">📊 Tabela 2 - Placar de Gols</h3>`;
+                    html += `<table><thead><tr><th>Classificação</th><th>Jogador</th><th>Pontos</th><th>Apostas</th><th>Aproveitamento</th></tr></thead><tbody>`;
 
                     position = 1;
                     sortedPartial.forEach(([, stats], idx) => {
                         if (idx > 0 && sortedPartial[idx][1].partialMatches !== sortedPartial[idx - 1][1].partialMatches) {
                             position = idx + 1;
                         }
-                        html += `<tr>
-                            <td><strong>${position}º</strong></td>
-                            <td>${stats.name}</td>
-                            <td><strong>${stats.partialMatches}</strong></td>
-                            <td>${stats.exactMatchCount}</td>
-                            <td>${stats.partialApprovement}%</td>
-                        </tr>`;
+                        html += `<tr><td><strong>${position}</strong></td><td>${stats.name}</td><td><strong>${stats.partialMatches}</strong></td><td>${stats.partialMatchCount}</td><td>${stats.partialApprovement}%</td></tr>`;
                     });
 
-                    html += '</tbody></table>';
+                    html += `</tbody></table>`;
 
-                    // TABLE 3: Result Matches
+                    // TABLE 3 - Result Matches
                     const sortedResult = Object.entries(stats).sort((a, b) => b[1].resultMatches - a[1].resultMatches);
-                    html += '<h3 style="margin-top:30px;">📊 Tabela 3: Resultado (Vitória/Empate)</h3>';
-                    html += `<table>
-                        <thead>
-                            <tr>
-                                <th>Classificação</th>
-                                <th>Jogador</th>
-                                <th>Pontos</th>
-                                <th>Apostas</th>
-                                <th>Aproveitamento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    `;
+                    html += `<h3 style="margin-top:30px;">📊 Tabela 3 - Resultado (Vitória/Empate)</h3>`;
+                    html += `<table><thead><tr><th>Classificação</th><th>Jogador</th><th>Pontos</th><th>Apostas</th><th>Aproveitamento</th></tr></thead><tbody>`;
 
                     position = 1;
                     sortedResult.forEach(([, stats], idx) => {
                         if (idx > 0 && sortedResult[idx][1].resultMatches !== sortedResult[idx - 1][1].resultMatches) {
                             position = idx + 1;
                         }
-                        html += `<tr>
-                            <td><strong>${position}º</strong></td>
-                            <td>${stats.name}</td>
-                            <td><strong>${stats.resultMatches}</strong></td>
-                            <td>${stats.resultMatchCount}</td>
-                            <td>${stats.resultApprovement}%</td>
-                        </tr>`;
+                        html += `<tr><td><strong>${position}</strong></td><td>${stats.name}</td><td><strong>${stats.resultMatches}</strong></td><td>${stats.resultMatchCount}</td><td>${stats.resultApprovement}%</td></tr>`;
                     });
 
-                    html += '</tbody></table>';
-
-                    // CLASSIFICATION CHART
-                    html += '<h3 style="margin-top:30px;">📈 Gráfico de Progressão de Classificação</h3>';
-                    html += '<div class="chart-container"><canvas id="classificationChart"></canvas></div>';
+                    html += `</tbody></table>`;
 
                     document.getElementById('statisticsContent').innerHTML = html;
-
-                    // Draw chart after a short delay to ensure canvas is rendered
-                    setTimeout(() => drawClassificationChart(weeksArray, players), 100);
                 });
-            });
-        }
-
-        function drawClassificationChart(weeks, players) {
-            const ctx = document.getElementById('classificationChart');
-            if (!ctx) return;
-
-            const playerIds = Object.keys(players);
-            const labels = weeks.map(w => `Sem ${w.weekNumber}`);
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#ff6b6b', '#ffd93d', '#6bcf7f'];
-
-            const datasets = playerIds.map((playerId, idx) => {
-                const positions = [];
-
-                weeks.forEach(week => {
-                    const classification = calculateClassification(
-                        Object.entries(players).map(([key, data]) => ({ id: key, ...data })),
-                        { [playerId]: { games: week.games } }
-                    );
-                    // Simplified: just show player index for demo
-                    positions.push(idx + 1);
-                });
-
-                return {
-                    label: players[playerId].name,
-                    data: positions,
-                    borderColor: colors[idx % colors.length],
-                    backgroundColor: colors[idx % colors.length] + '20',
-                    tension: 0.4,
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 4
-                };
-            });
-
-            new Chart(ctx, {
-                type: 'line',
-                data: { labels, datasets },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top', labels: { font: { size: 12 } } }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            reverse: true,
-                            title: { display: true, text: 'Classificação' }
-                        },
-                        x: {
-                            title: { display: true, text: 'Semana' }
-                        }
-                    }
-                }
             });
         }
 
