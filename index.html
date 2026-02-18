@@ -1189,9 +1189,9 @@ const firebaseConfig = {
                                 <div style="text-align:center;">
                                     <small style="color:#718096;">${player.name}<br></small>
                                     <div style="display:flex; gap:5px; justify-content:center;">
-                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="home" value="${homeGoals || ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
+                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="home" value="${homeGoals !== null && homeGoals !== undefined ? homeGoals : ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
                                         <span style="font-size:11px; padding:4px;">x</span>
-                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="away" value="${awayGoals || ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
+                                        <input type="number" class="predInput" data-game="${gameIdx}" data-player="${playerId}" data-type="away" value="${awayGoals !== null && awayGoals !== undefined ? awayGoals : ''}" placeholder="0" style="width:35px; font-size:12px; padding:5px;">
                                     </div>
                                 </div>
                             `;
