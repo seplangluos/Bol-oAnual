@@ -1326,10 +1326,18 @@ const firebaseConfig = {
                                         exactPoints += weight;
                                     }
 
-                                    // Partial matches
-                                    partialMatchCount++;
-                                    if (pred.homeGoals === game.result.homeGoals || pred.awayGoals === game.result.awayGoals) {
-                                        if (!(pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals)) {
+                                    // Partial matches (placar de gols)
+                                    partialMatchCount += 2; // dois placares por jogo (mandante e visitante)
+
+                                    // Se acertou o placar exato, conta 2 pontos (um para cada placar)
+                                    if (pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals) {
+                                        partialMatches += 2;
+                                    } else {
+                                        // Acertos individuais de placar (1 ponto cada)
+                                        if (pred.homeGoals === game.result.homeGoals) {
+                                            partialMatches++;
+                                        }
+                                        if (pred.awayGoals === game.result.awayGoals) {
                                             partialMatches++;
                                         }
                                     }
