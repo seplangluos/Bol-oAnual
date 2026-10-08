@@ -436,6 +436,19 @@
                 grid-template-columns: 1fr;
             }
         }
+        .filter-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .filter-panel .form-group { margin-bottom: 0; }
+        .filter-panel .filter-actions { display: flex; align-items: end; }
+        #filteredSummary { color: #4a5568; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -446,6 +459,7 @@
             <button class="sidebar-btn" onclick="showPage('players')">👥 Jogadores</button>
             <button class="sidebar-btn" onclick="showPage('predictions')">🎯 Palpites e Resultados</button>
             <button class="sidebar-btn" onclick="showPage('statistics')">📈 Estatísticas</button>
+            <button class="sidebar-btn" onclick="showPage('tableFilters')">🔍 Tabela Filtros</button>
             <button class="sidebar-btn" onclick="showPage('admin')">⚙️ Cadastros</button>
             <div class="user-info" id="userInfo">Não autenticado</div>
             <button class="logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
@@ -493,6 +507,40 @@
                 <button class="back-btn" onclick="showPage('dashboard')">← Voltar</button>
                 <h1>📈 Estatísticas</h1>
                 <div id="statisticsContent"></div>
+            </div>
+
+            <div id="tableFilters" class="page">
+                <button class="back-btn" onclick="showPage('dashboard')">← Voltar</button>
+                <h1>🔍 Tabela Filtros</h1>
+                <div class="filter-panel">
+                    <div class="form-group">
+                        <label for="filterCompetition">Campeonato</label>
+                        <select id="filterCompetition" onchange="renderFilteredTables()"><option value="">Todos os campeonatos</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStartDate">Data inicial</label>
+                        <input type="date" id="filterStartDate" onchange="renderFilteredTables()">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterEndDate">Data final</label>
+                        <input type="date" id="filterEndDate" onchange="renderFilteredTables()">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterTeam">Time</label>
+                        <select id="filterTeam" onchange="renderFilteredTables()"><option value="">Todos os times</option></select>
+                    </div>
+                    <div class="filter-actions"><button class="btn btn-secondary" onclick="clearTableFilters()">Limpar filtros</button></div>
+                </div>
+                <div id="filteredSummary" role="status" aria-live="polite">Carregando...</div>
+                <h2>Classificação Geral — Jogos Filtrados</h2>
+                <div class="table-responsive">
+                    <table id="filteredClassificationTable">
+                        <thead><tr><th>Posição</th><th>Jogador</th><th>Pontos</th></tr></thead>
+                        <tbody><tr><td colspan="3">Carregando...</td></tr></tbody>
+                    </table>
+                </div>
+                <h2 style="margin-top: 30px;">Palpites e Resultados — Jogos Filtrados</h2>
+                <div id="filteredPredictionsList"></div>
             </div>
 
             <div id="admin" class="page">
@@ -657,6 +705,7 @@
             if (pageName === 'players') loadPlayers();
             if (pageName === 'predictions') loadPredictionsList();
             if (pageName === 'statistics') loadStatistics();
+            if (pageName === 'tableFilters') loadTableFilters();
         }
 
         // LOAD ALL DATA
@@ -1350,6 +1399,156 @@ function loadPredictionsList() {
                     document.getElementById('statisticsContent').innerHTML = html;
                 });
             });
+        }
+
+
+        // TABELA FILTROS: somente leitura, com atualização automática dos dados.
+        let tableFiltersListening = false;
+        let tableFiltersPlayers = null;
+        let tableFiltersWeeks = null;
+
+        function escapeFilterHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, character => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[character]);
+        }
+
+        function loadTableFilters() {
+            if (tableFiltersListening) {
+                renderFilteredTables();
+                return;
+            }
+            tableFiltersListening = true;
+            const onError = () => {
+                document.getElementById('filteredSummary').textContent = 'Não foi possível carregar os dados. Recarregue a página para tentar novamente.';
+                document.querySelector('#filteredClassificationTable tbody').innerHTML = '<tr><td colspan="3">Dados indisponíveis.</td></tr>';
+                document.getElementById('filteredPredictionsList').innerHTML = '';
+            };
+            db.ref('players').on('value', snapshot => {
+                tableFiltersPlayers = snapshot.val() || {};
+                renderFilteredTables();
+            }, onError);
+            db.ref('weeks').on('value', snapshot => {
+                tableFiltersWeeks = snapshot.val() || {};
+                updateTableFilterOptions();
+                renderFilteredTables();
+            }, onError);
+        }
+
+        function normalizeFilterTeam(value) {
+            return String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .trim().replace(/\s+/g, ' ').toLocaleLowerCase('pt-BR');
+        }
+
+        function updateTableFilterOptions() {
+            const competitions = new Set();
+            const teams = new Map();
+            function addTeam(value) {
+                const label = String(value ?? '').trim().replace(/\s+/g, ' ');
+                const key = normalizeFilterTeam(label);
+                if (!key) return;
+                const current = teams.get(key);
+                // Prefere a grafia acentuada como rótulo da opção única.
+                const accents = text => (text.normalize('NFD').match(/[\u0300-\u036f]/g) || []).length;
+                if (!current || accents(label) > accents(current)) teams.set(key, label);
+            }
+            Object.values(tableFiltersWeeks || {}).forEach(week => {
+                (week.games || []).forEach(game => {
+                    if (game.competition) competitions.add(game.competition);
+                    addTeam(game.homeTeam);
+                    addTeam(game.awayTeam);
+                });
+            });
+            function fillSelect(id, values, label) {
+                const select = document.getElementById(id);
+                const selected = select.value;
+                select.innerHTML = '<option value="">' + label + '</option>';
+                Array.from(values).sort((a, b) => a.localeCompare(b, 'pt-BR')).forEach(value => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = value;
+                    select.appendChild(option);
+                });
+                select.value = values.has(selected) ? selected : '';
+            }
+            fillSelect('filterCompetition', competitions, 'Todos os campeonatos');
+            const teamSelect = document.getElementById('filterTeam');
+            const selectedTeam = normalizeFilterTeam(teamSelect.value);
+            teamSelect.innerHTML = '<option value="">Todos os times</option>';
+            Array.from(teams.entries()).sort((a, b) => a[1].localeCompare(b[1], 'pt-BR')).forEach(([key, label]) => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = label;
+                teamSelect.appendChild(option);
+            });
+            teamSelect.value = teams.has(selectedTeam) ? selectedTeam : '';
+        }
+
+        function getFilteredWeeks(weeks, filters) {
+            return Object.values(weeks || {}).map(week => ({
+                ...week,
+                games: (week.games || []).filter(game => {
+                    if (filters.competition && game.competition !== filters.competition) return false;
+                    if (filters.team && normalizeFilterTeam(game.homeTeam) !== normalizeFilterTeam(filters.team) && normalizeFilterTeam(game.awayTeam) !== normalizeFilterTeam(filters.team)) return false;
+                    if ((filters.startDate || filters.endDate) && !game.gameDate) return false;
+                    if (filters.startDate && game.gameDate < filters.startDate) return false;
+                    if (filters.endDate && game.gameDate > filters.endDate) return false;
+                    return true;
+                })
+            })).filter(week => week.games.length).sort((a, b) => b.weekNumber - a.weekNumber);
+        }
+
+        function clearTableFilters() {
+            ['filterCompetition', 'filterStartDate', 'filterEndDate', 'filterTeam'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            renderFilteredTables();
+        }
+
+        function renderFilteredTables() {
+            if (tableFiltersPlayers === null || tableFiltersWeeks === null) return;
+            const filters = {
+                competition: document.getElementById('filterCompetition').value,
+                startDate: document.getElementById('filterStartDate').value,
+                endDate: document.getElementById('filterEndDate').value,
+                team: document.getElementById('filterTeam').value
+            };
+            const summary = document.getElementById('filteredSummary');
+            const tbody = document.querySelector('#filteredClassificationTable tbody');
+            const predictionsList = document.getElementById('filteredPredictionsList');
+            if (filters.startDate && filters.endDate && filters.startDate > filters.endDate) {
+                summary.textContent = 'A data inicial deve ser anterior ou igual à data final.';
+                tbody.innerHTML = '<tr><td colspan="3">Corrija o período selecionado.</td></tr>';
+                predictionsList.innerHTML = '';
+                return;
+            }
+            const filteredWeeks = getFilteredWeeks(tableFiltersWeeks, filters);
+            const games = filteredWeeks.flatMap(week => week.games);
+            const finished = games.filter(game => game.result).length;
+            summary.textContent = `${games.length} jogo(s) encontrado(s): ${finished} com resultado e ${games.length - finished} pendente(s). Pontuação: 1 ponto por placar exato ou 2 pontos em jogos de peso 2.`;
+            const playersList = Object.entries(tableFiltersPlayers).map(([id, player]) => ({ ...player, id }));
+            // Reutiliza o mesmo cálculo da Classificação Geral, somente com os jogos filtrados.
+            const classification = calculateClassification(playersList, filteredWeeks);
+            let position = 1;
+            tbody.innerHTML = classification.map((player, index) => {
+                if (index > 0 && player.points !== classification[index - 1].points) position = index + 1;
+                return `<tr><td><strong>${position}º</strong></td><td>${escapeFilterHtml(player.name)}</td><td><strong>${player.points}</strong></td></tr>`;
+            }).join('') || '<tr><td colspan="3">Nenhum jogador cadastrado.</td></tr>';
+
+            predictionsList.innerHTML = filteredWeeks.map(week => {
+                const header = playersList.map(player => `<th>${escapeFilterHtml(player.name)}</th>`).join('');
+                const rows = week.games.map(game => {
+                    const predictions = playersList.map(player => {
+                        const pred = game.predictions && game.predictions[player.id];
+                        const hasPred = pred && pred.homeGoals !== null && pred.homeGoals !== undefined && pred.awayGoals !== null && pred.awayGoals !== undefined;
+                        const correct = game.result && hasPred && pred.homeGoals === game.result.homeGoals && pred.awayGoals === game.result.awayGoals;
+                        return `<td class="${correct ? 'correct' : ''}">${hasPred ? `${escapeFilterHtml(pred.homeGoals)}x${escapeFilterHtml(pred.awayGoals)}` : '-'}</td>`;
+                    }).join('');
+                    const result = game.result ? `<strong>${escapeFilterHtml(game.result.homeGoals)} x ${escapeFilterHtml(game.result.awayGoals)}</strong>` : '<span style="color:#a0aec0;">Pendente</span>';
+                    return `<tr><td><strong>${escapeFilterHtml(game.homeTeam)} x ${escapeFilterHtml(game.awayTeam)}</strong><br><small style="color:#718096;">${escapeFilterHtml(game.gameDate)} · ${escapeFilterHtml(game.competition)} ${game.weight > 1 ? '(Peso 2)' : ''}</small></td><td>${result}</td>${predictions}</tr>`;
+                }).join('');
+                return `<h3>Semana ${escapeFilterHtml(week.weekNumber)} - ${escapeFilterHtml(week.startDate)} a ${escapeFilterHtml(week.endDate)}</h3><div class="table-responsive"><table class="predictions-table"><thead><tr><th>Jogo</th><th>Resultado</th>${header}</tr></thead><tbody>${rows}</tbody></table></div>`;
+            }).join('') || '<div class="empty-message">Nenhum jogo encontrado para os filtros selecionados.</div>';
         }
 
         // INITIAL LOAD
