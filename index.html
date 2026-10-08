@@ -448,6 +448,13 @@
         }
         .filter-panel .form-group { margin-bottom: 0; }
         .filter-panel .filter-actions { display: flex; align-items: end; }
+        .competition-picker { border: 2px solid #e2e8f0; border-radius: 6px; background: white; }
+        .competition-picker summary { cursor: pointer; padding: 10px 12px; font-size: 14px; }
+        .competition-options { padding: 8px 12px; max-height: 240px; overflow-y: auto; }
+        .competition-options label { display: flex; align-items: center; gap: 8px; padding: 6px 0; margin: 0; cursor: pointer; }
+        .competition-options input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; accent-color: #667eea; }
+        .competition-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+        .competition-actions button { border: 1px solid #667eea; border-radius: 4px; color: #4c51bf; background: white; padding: 6px 8px; cursor: pointer; }
         #filteredSummary { color: #4a5568; margin-bottom: 20px; }
     </style>
 </head>
@@ -514,8 +521,16 @@
                 <h1>🔍 Tabela Filtros</h1>
                 <div class="filter-panel">
                     <div class="form-group">
-                        <label for="filterCompetition">Campeonato</label>
-                        <select id="filterCompetition" onchange="renderFilteredTables()"><option value="">Todos os campeonatos</option></select>
+                        <label id="filterCompetitionLabel">Campeonatos incluídos</label>
+                        <details class="competition-picker" aria-labelledby="filterCompetitionLabel">
+                            <summary id="filterCompetitionSummary">Todos os campeonatos</summary>
+                            <div class="competition-actions">
+                                <button type="button" onclick="setAllCompetitions(true)">Marcar todos</button>
+                                <button type="button" onclick="setAllCompetitions(false)">Desmarcar todos</button>
+                            </div>
+                            <div id="filterCompetitionOptions" class="competition-options"></div>
+                        </details>
+                        <small style="color: #718096;">Desmarque para excluir dos jogos e da pontuação.</small>
                     </div>
                     <div class="form-group">
                         <label for="filterStartDate">Data inicial</label>
@@ -1406,6 +1421,8 @@ function loadPredictionsList() {
         let tableFiltersListening = false;
         let tableFiltersPlayers = null;
         let tableFiltersWeeks = null;
+        let tableFilterCompetitions = [];
+        const excludedFilterCompetitions = new Set();
 
         function escapeFilterHtml(value) {
             return String(value ?? '').replace(/[&<>"']/g, character => ({
@@ -1454,24 +1471,13 @@ function loadPredictionsList() {
             }
             Object.values(tableFiltersWeeks || {}).forEach(week => {
                 (week.games || []).forEach(game => {
-                    if (game.competition) competitions.add(game.competition);
+                    competitions.add(game.competition || '');
                     addTeam(game.homeTeam);
                     addTeam(game.awayTeam);
                 });
             });
-            function fillSelect(id, values, label) {
-                const select = document.getElementById(id);
-                const selected = select.value;
-                select.innerHTML = '<option value="">' + label + '</option>';
-                Array.from(values).sort((a, b) => a.localeCompare(b, 'pt-BR')).forEach(value => {
-                    const option = document.createElement('option');
-                    option.value = value;
-                    option.textContent = value;
-                    select.appendChild(option);
-                });
-                select.value = values.has(selected) ? selected : '';
-            }
-            fillSelect('filterCompetition', competitions, 'Todos os campeonatos');
+            tableFilterCompetitions = Array.from(competitions).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+            renderCompetitionFilter();
             const teamSelect = document.getElementById('filterTeam');
             const selectedTeam = normalizeFilterTeam(teamSelect.value);
             teamSelect.innerHTML = '<option value="">Todos os times</option>';
@@ -1484,11 +1490,37 @@ function loadPredictionsList() {
             teamSelect.value = teams.has(selectedTeam) ? selectedTeam : '';
         }
 
+        function renderCompetitionFilter() {
+            document.getElementById('filterCompetitionOptions').innerHTML = tableFilterCompetitions.map(competition =>
+                `<label><input type="checkbox" value="${escapeFilterHtml(competition)}" ${excludedFilterCompetitions.has(competition) ? '' : 'checked'} onchange="setCompetitionIncluded(this.value, this.checked)"><span>${escapeFilterHtml(competition || 'Sem competição informada')}</span></label>`
+            ).join('') || '<small>Nenhuma competição cadastrada.</small>';
+            const included = tableFilterCompetitions.filter(competition => !excludedFilterCompetitions.has(competition));
+            document.getElementById('filterCompetitionSummary').textContent =
+                !tableFilterCompetitions.length || included.length === tableFilterCompetitions.length ? 'Todos os campeonatos' :
+                included.length === 0 ? 'Nenhum campeonato selecionado' :
+                included.length === 1 ? (included[0] || 'Sem competição informada') :
+                `${included.length} de ${tableFilterCompetitions.length} campeonatos`;
+        }
+
+        function setCompetitionIncluded(competition, included) {
+            if (included) excludedFilterCompetitions.delete(competition);
+            else excludedFilterCompetitions.add(competition);
+            renderCompetitionFilter();
+            renderFilteredTables();
+        }
+
+        function setAllCompetitions(included) {
+            excludedFilterCompetitions.clear();
+            if (!included) tableFilterCompetitions.forEach(competition => excludedFilterCompetitions.add(competition));
+            renderCompetitionFilter();
+            renderFilteredTables();
+        }
+
         function getFilteredWeeks(weeks, filters) {
             return Object.values(weeks || {}).map(week => ({
                 ...week,
                 games: (week.games || []).filter(game => {
-                    if (filters.competition && game.competition !== filters.competition) return false;
+                    if (filters.excludedCompetitions && filters.excludedCompetitions.has(game.competition || '')) return false;
                     if (filters.team && normalizeFilterTeam(game.homeTeam) !== normalizeFilterTeam(filters.team) && normalizeFilterTeam(game.awayTeam) !== normalizeFilterTeam(filters.team)) return false;
                     if ((filters.startDate || filters.endDate) && !game.gameDate) return false;
                     if (filters.startDate && game.gameDate < filters.startDate) return false;
@@ -1499,7 +1531,9 @@ function loadPredictionsList() {
         }
 
         function clearTableFilters() {
-            ['filterCompetition', 'filterStartDate', 'filterEndDate', 'filterTeam'].forEach(id => {
+            excludedFilterCompetitions.clear();
+            renderCompetitionFilter();
+            ['filterStartDate', 'filterEndDate', 'filterTeam'].forEach(id => {
                 document.getElementById(id).value = '';
             });
             renderFilteredTables();
@@ -1508,7 +1542,7 @@ function loadPredictionsList() {
         function renderFilteredTables() {
             if (tableFiltersPlayers === null || tableFiltersWeeks === null) return;
             const filters = {
-                competition: document.getElementById('filterCompetition').value,
+                excludedCompetitions: excludedFilterCompetitions,
                 startDate: document.getElementById('filterStartDate').value,
                 endDate: document.getElementById('filterEndDate').value,
                 team: document.getElementById('filterTeam').value
